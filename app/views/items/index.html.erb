@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Yours tasks here!</h1>
+
+<div id="items", class="items-grid">
+  <% @items.each do |item| %>
+    <div class="item-container">
+      <div class="item-priority"><%= item.priority %></div>
+      <div class="title-description">
+        <div class="item-title"><%= item.title %></div>
+        <div class="item-description"> <%= item.description.present? ? item.description : "No description" %></div>
+      </div>
+      <div class="item-date">
+        <%= "To do before #{item.due_date}" if item.due_date %>
+        <%= link_to "See task", item_path(item) %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<br/>
+
+<%= link_to "New task", new_item_path %>

@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+<%= link_to "Back to tasks", items_path %>
+
+<div class="margin-bottom-32"> </div>
+
+<div class="field-value"> Title: <%= @item.title %></div>
+<div class="field-value"> Due Date: <%= @item.due_date %></div>
+<div class="field-value"> Priority: <%= @item.priority %></div>
+<div class="field-value"> Description: <%= @item.description %></div>
+
+
+<div class="field-row">
+  <%= link_to "Edit this task", edit_item_path(@item) %>
+  <%= button_to "Destroy this task", @item, method: :delete %>
+</div>
