@@ -12,9 +12,9 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
+    @item = Items::Creator.new(item_params).create!
 
-    if @item.save
+    if @item.errors.empty?
       render json: @item, status: :created, location: @item
     else
       render json: @item.errors, status: :unprocessable_entity
@@ -22,7 +22,9 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
+    Items::Updater.new(@item, item_params).update!
+
+    if @item.errors.empty?
       render json: @item
     else
       render json: @item.errors, status: :unprocessable_entity
@@ -38,14 +40,13 @@ class Api::V1::ItemsController < ApplicationController
   private
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.find(item_params[:id])
 
   rescue ActiveRecord::RecordNotFound
     render json: "Task not found.", status: 404 unless @item
   end
 
-  # Only allow a list of trusted parameters through.
   def item_params
-    params.fetch(:item, {})
+    params.permit( :id, :title, :description, :due_date, :priority)
   end
 end

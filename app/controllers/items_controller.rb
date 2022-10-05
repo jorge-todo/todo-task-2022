@@ -16,9 +16,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
+    @item = Items::Creator.new(item_params).create!
 
-    if @item.save
+    if @item.errors.empty?
       redirect_to items_path, notice: "Task was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -26,7 +26,9 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
+    Items::Updater.new(@item, item_params).update!
+
+    if @item.errors.empty?
       redirect_to item_url(@item), notice: "Task was successfully updated."
     else
       render :edit, status: :unprocessable_entity
