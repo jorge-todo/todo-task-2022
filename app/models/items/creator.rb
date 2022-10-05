@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# items::Creator takes only allowed params to create items
+# Items::Creator takes only allowed params to create items
 class Items::Creator
   def initialize(params)
     @params = params

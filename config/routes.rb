@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get "/tasks",  controller: "items", action: "index"
-      get "task/:id", controller: "items", action: "show"
+      get "task", controller: "items", action: "show"
       post "new-task", controller: "items", action: "create"
-      post "task/:id", controller: "items", action: "update"
+      post "task", controller: "items", action: "update"
     end
   end
 end

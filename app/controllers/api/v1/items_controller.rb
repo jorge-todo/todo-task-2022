@@ -17,7 +17,7 @@ class Api::V1::ItemsController < ApplicationController
     if @item.errors.empty?
       render json: @item, status: :created, location: @item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: @item.errors.full_messages.to_sentence, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::ItemsController < ApplicationController
     if @item.errors.empty?
       render json: @item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: @item.errors.full_messages.to_sentence, status: :unprocessable_entity
     end
   end
 
